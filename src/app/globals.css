@@ -2,12 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --header-height: 4.7rem
+}
+
 * {
   box-sizing: border-box;
+}
+
+header {
+  height: var(--header-height);
 }
 
 body {
   min-height: 100vh;
   height: 100%;
   width: 100%;
+}
+
+main {
+  min-height: calc(100vh - var(--header-height));
 }
