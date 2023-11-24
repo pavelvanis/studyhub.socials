@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Josefin_Sans } from "next/font/google";
-import "./globals.css";
+import { Josefin_Sans } from "next/font/google";
+import "@/app/globals.css";
 
 // Import components
-import { Footer, Header, Providers } from "@/components";
+import { Footer, Providers } from "@/components";
+import { AppHeader } from "@/components/header";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={josefin.className}>
         <Providers>
-          <Header />
+          <AppHeader />
           {children}
           <Footer />
         </Providers>
