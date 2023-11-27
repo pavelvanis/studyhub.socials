@@ -1,6 +1,8 @@
 import Link from "next/link";
 
-const Header = () => {
+// Header for (home) layout
+
+const HomeHeader = () => {
   return (
     <header className="text-center w-full bg-red-100 p-3">
       <div className="flex justify-between items-center h-full">
@@ -15,4 +17,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HomeHeader;

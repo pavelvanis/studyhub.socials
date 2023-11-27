@@ -1,3 +1,2 @@
-export { default as Header } from "./header";
-export { default as AppHeader } from "./_app";
-export { default as HelpHeader } from "./_help";
+export { default as HomeHeader } from "./_home";
+export { default as DashHeader } from "./_dash";

@@ -1,7 +1,9 @@
+// Not found page for (home) layout
+
 const NotFound = () => {
   return (
     <main className="flex items-center justify-center text-3xl font-semibold">
-      Home Page was not found
+      Dash page was not found
     </main>
   );
 };
