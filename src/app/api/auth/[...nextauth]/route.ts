@@ -16,7 +16,7 @@ const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        console.log(credentials);
+        
 
         if (password === "1234") {
           throw new Error("Invalid credentials")

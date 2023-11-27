@@ -4,6 +4,7 @@ import { Input } from "../utils";
 import { InputProps } from "../utils/input/input";
 import { Lock, Mail } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   button?: string;
@@ -21,16 +22,19 @@ const CredentialsLoginForm: React.FC<Props> = ({ button }) => {
     password: "",
   });
 
-  const session = useSession();
+  const router = useRouter();
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    const res = await signIn("credentials", {
-      ...credentials.current,
-      redirect: false,
-    });
-    console.log(res);
-    console.log(session.data?.user);
+    try {
+      const res = await signIn("credentials", {
+        ...credentials.current,
+        redirect: false,
+      });
+      if (res?.ok) return router.push("/account");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <form onSubmit={submitHandler} className=" w-full space-y-5">
