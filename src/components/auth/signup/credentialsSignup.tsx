@@ -1,6 +1,7 @@
 "use client";
 import Input, { InputProps } from "@/components/utils/input/input";
 import { Lock, Mail, User2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { FormEvent, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -16,6 +17,8 @@ type CredentialsSignupProps = {
 
 // Form for signup with credentials
 const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
+  const router = useRouter();
+  const formRef = useRef<HTMLFormElement | null>(null);
   const credentials = useRef<CredentialsSignupProps>({
     name: "",
     email: "",
@@ -35,10 +38,14 @@ const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
       const res = await signup.json();
       // check error
       if (!signup.ok) {
-        setError(res.error);
-      } else {
-        setError(null);
+        return setError(res.error);
       }
+      // clear error state
+      setError(null);
+      // clear form
+      formRef.current?.reset();
+      // redirect to user page
+      router.replace(`/${res.user.name}`)
     } catch (error) {
       console.log("blablabla");
       // console.error(error);
@@ -46,7 +53,7 @@ const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form ref={formRef} onSubmit={submitHandler}>
       <div className=" space-y-5 w-full">
         <Inputs credentials={credentials} />
       </div>
