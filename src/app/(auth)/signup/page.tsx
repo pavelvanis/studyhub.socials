@@ -1,4 +1,3 @@
-import CredentialsLoginForm from "@/components/auth/credentialsLogin";
 import CredentialsSignupForm from "@/components/auth/signup/credentialsSignup";
 import { Container, Content, Heading } from "@/components/auth/utils";
 import { Metadata } from "next";

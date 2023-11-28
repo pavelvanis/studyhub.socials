@@ -1,7 +1,7 @@
 "use client";
 import Input, { InputProps } from "@/components/utils/input/input";
 import { Lock, Mail, User2 } from "lucide-react";
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 
 type Props = {
   button?: string;
@@ -20,14 +20,38 @@ const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
     email: "",
     password: "",
   });
-  const submitHandler = (e: FormEvent) => {
+  const [error, setError] = useState<string | null>("null");
+
+  const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(credentials.current);
+    try {
+      // console.log(JSON.stringify({ ...credentials.current }));
+      const signup = await fetch("api/auth/users", {
+        method: "POST",
+        body: JSON.stringify({ ...credentials.current }),
+      });
+      const text = await signup.json();
+      if (!signup.ok) {
+        // console.log("not OK");
+        // console.log(text);
+        setError(text.error);
+      }
+    } catch (error) {
+      console.log("blablabla");
+      // console.error(error);
+    }
   };
 
   return (
-    <form onSubmit={submitHandler} className=" space-y-5 w-full">
-      <Inputs credentials={credentials} />
+    <form onSubmit={submitHandler}>
+      <div className=" space-y-5 w-full">
+        <Inputs credentials={credentials} />
+      </div>
+      {error && (
+        <p className=" mt-3 ms-1 mb-5 text-sm text-red-700">
+          *<span className="ms-1">{error}</span>
+        </p>
+      )}
       <Button title={button || ""} />
     </form>
   );
@@ -35,8 +59,12 @@ const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
 
 export default CredentialsSignupForm;
 
+type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
+  title: string | null;
+};
+
 // Form submit button
-const Button = ({ title }: { title: string }) => {
+const Button = ({ title }: ButtonProps) => {
   return (
     <button
       type="submit"

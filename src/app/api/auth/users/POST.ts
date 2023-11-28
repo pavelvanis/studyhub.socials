@@ -51,10 +51,9 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       },
     });
   } catch (error) {
-    console.error(error);
     // Check if error is from mongoDB
     if (error instanceof mongoose.Error.ValidationError) {
-      // console.log(error.message);
+      console.log(error.message);
       return NextResponse.json({ error: error.message }, { status: 422 });
     }
     if (error instanceof SyntaxError) {
@@ -64,7 +63,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
         { status: 400 }
       );
     }
-
+    console.error(error);
     // Return error
     return NextResponse.json(
       { error: "Internal server error" },
