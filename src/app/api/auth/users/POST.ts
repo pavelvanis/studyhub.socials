@@ -1,3 +1,4 @@
+import { z } from "zod";
 import UserModel, { UserZSchema } from "@/models/userModel";
 import connectDB from "@/utils/db";
 import mongoose from "mongoose";
@@ -25,23 +26,25 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     // connect to db
     await connectDB();
 
-    console.log(body);
     // validate data
-    const validatUser = UserZSchema.parse(body);
-    console.log("valid: ", validatUser);
+    UserZSchema.parse(body);
 
     // Check if exist user with same email
     const findUser = await UserModel.findOne(
       { email: body.email },
       { __v: 0, password: 0 }
     );
-
     if (findUser) {
-      return NextResponse.json({ error: "Email is in use" }, { status: 422 });
+      return NextResponse.json(
+        { error: "Email is already using" },
+        { status: 422 }
+      );
     }
 
+    // create user
     const user = await UserModel.create({ ...body });
 
+    // return user
     return NextResponse.json({
       user: {
         id: user.id,
@@ -51,15 +54,20 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       },
     });
   } catch (error) {
-    // Check if error is from mongoDB
+    // return database error
     if (error instanceof mongoose.Error.ValidationError) {
-      console.log(error.message);
+      // console.log(error.message);
       return NextResponse.json({ error: error.message }, { status: 422 });
     }
+    // return Syntax error
     if (error instanceof SyntaxError) {
-      console.log(error.message);
+      // console.log(error.message);
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    if (error instanceof z.ZodError) {
+      // console.log(error.errors[0].message);
       return NextResponse.json(
-        { error: error.message },
+        { error: error.errors[0].message },
         { status: 400 }
       );
     }
@@ -71,4 +79,3 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     );
   }
 };
-
