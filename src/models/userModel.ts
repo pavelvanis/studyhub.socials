@@ -1,8 +1,14 @@
-import validPassword from "@/utils/validation/password";
-import checkPassword from "@/utils/validation/password";
 import bcrypt from "bcrypt";
-import mongoose, { Model, Schema, model, models } from "mongoose";
+import { Model, Schema, model, models } from "mongoose";
 import validator from "validator";
+import { z } from "zod";
+
+export const UserZSchema = z.object({
+  email: z.string().email(),
+  name: z.string(),
+  password: z.string(),
+  role: z.enum(["admin", "user"]).optional(),
+});
 
 interface UserDocument extends Document {
   email: string;
