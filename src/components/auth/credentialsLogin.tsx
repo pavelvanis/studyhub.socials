@@ -3,7 +3,7 @@ import React, { FormEvent, useRef } from "react";
 import { Input } from "../utils";
 import { InputProps } from "../utils/input/input";
 import { Lock, Mail } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 type Props = {
