@@ -1,10 +1,11 @@
 "use client";
-import React, { FormEvent, useRef } from "react";
-import { Input } from "../utils";
-import { InputProps } from "../utils/input/input";
+import React, { FormEvent, useRef, useState } from "react";
+import { Input } from "../../utils";
+import { InputProps } from "../../utils/input/input";
 import { Lock, Mail } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
   button?: string;
@@ -17,6 +18,8 @@ type CredentialsLoginProps = {
 
 // Form for login with credentials
 const CredentialsLoginForm: React.FC<Props> = ({ button }) => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const [error, setError] = useState<string | null | undefined>(null);
   const credentials = useRef<CredentialsLoginProps>({
     email: "",
     password: "",
@@ -27,11 +30,15 @@ const CredentialsLoginForm: React.FC<Props> = ({ button }) => {
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const res = await signIn("credentials", {
+      const signin = await signIn("credentials", {
         ...credentials.current,
         redirect: false,
       });
-      if (res?.ok) return router.push("/account");
+      console.log(signin);
+      if (!signin?.ok) return setError(signin?.error);
+      setError(null);
+      // formRef.current?.reset();
+      // router.push("/account");
     } catch (error) {
       console.log(error);
     }
@@ -46,16 +53,26 @@ const CredentialsLoginForm: React.FC<Props> = ({ button }) => {
 
 export default CredentialsLoginForm;
 
-const Button = ({ title }: { title: string }) => {
+type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
+  title: string | null;
+};
+
+// Form submit button
+const Button = ({ title, className, ...props }: ButtonProps) => {
   return (
     <button
+      {...props}
       type="submit"
-      className="w-full bg-red-600 hover:bg-red-700 transition-all rounded-lg px-4 py-3 text-white font-semibold shadow-xl"
+      className={twMerge(
+        "w-full bg-red-600 hover:bg-red-700 transition-all rounded-lg px-4 py-3 text-white font-semibold shadow-xl",
+        className
+      )}
     >
       {title ? title : "Submit"}
     </button>
   );
 };
+
 // Inputs for form
 const Inputs = ({
   credentials,

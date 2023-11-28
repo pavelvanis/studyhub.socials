@@ -1,4 +1,4 @@
-import CredentialsLoginForm from "@/components/auth/credentialsLogin";
+import CredentialsLoginForm from "@/components/auth/login/credentialsLogin";
 import { Container, Content, Heading } from "@/components/auth/utils";
 import Link from "next/link";
 
