@@ -1,3 +1,4 @@
+import { validId } from "@/app/api/_utils/error-handler";
 import UserModel from "@/models/db/user/user";
 import connectDB from "@/utils/db";
 import mongoose from "mongoose";
@@ -19,9 +20,7 @@ type NewResponse = NextResponse<{ users?: NewUserResponse; error?: string }>;
 export const getOne = async ({}, { params: { id } }: Props) => {
   try {
     // check valid id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json({ message: "Inavlid id" }, { status: 400 });
-    }
+    validId(id);
 
     await connectDB();
 
