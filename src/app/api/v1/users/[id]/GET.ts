@@ -1,4 +1,4 @@
-import { validId } from "@/app/api/_utils/error-handler";
+import { notFound, validId } from "@/app/api/_utils/error-handler";
 import UserModel from "@/models/db/user/user";
 import connectDB from "@/utils/db";
 import mongoose from "mongoose";
@@ -20,14 +20,15 @@ type NewResponse = NextResponse<{ users?: NewUserResponse; error?: string }>;
 export const getOne = async ({}, { params: { id } }: Props) => {
   try {
     // check valid id
-    validId(id);
+    const invalidId = validId(id);
+    if (invalidId) return invalidId;
 
     await connectDB();
 
     // Find user
     const user = await UserModel.findOne({ _id: id }, { __v: 0, password: 0 });
-    console.log(user);
-    if (!user) throw new Error("User does not exist");
+    const notUser = notFound(user, "User was not found");
+    if (notUser) return notUser;
 
     // ... Token validation
     console.log(
@@ -37,11 +38,9 @@ export const getOne = async ({}, { params: { id } }: Props) => {
     // Return user
     return NextResponse.json({ user: user });
   } catch (error) {
-    console.log(error);
-    if (error instanceof Error)
-      return NextResponse.json({ error: error.message }, { status: 400 });
+    console.error(error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
