@@ -1,13 +1,13 @@
-import UserModel from "@/models/userModel";
+import UserModel from "@/models/db/user/user";
 import connectDB from "@/utils/db";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { string, z } from "zod";
+import { z } from "zod";
 
 const LoginZSchema = z.object({
   email: z.string(),
-  password: string(),
+  password: z.string(),
 });
 
 export const authOptions: NextAuthOptions = {
@@ -27,20 +27,27 @@ export const authOptions: NextAuthOptions = {
             console.log(error.message);
             throw new Error("Invalid type");
           }
+          return null;
         }
+
         // connect to DB
         await connectDB();
+
         // destructuralize credentials
         const { email, password } = credentials as {
           email: string;
           password: string;
         };
 
-        // const user = await UserModel.findOne({ email });
+        // find user
+        const user = await UserModel.findOne({ email }, { __v: 0 });
+        if (!user) throw new Error("User does not exist");
 
+        // compare password
+        // const passowrdMatch = await user.comparePassword(password);
+        // if (!passowrdMatch) throw new Error("Incorrect password");
 
-
-        return { id: "1", name: email };
+        return { name: user?.name, email: user?.email };
       },
     }),
   ],

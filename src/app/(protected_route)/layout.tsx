@@ -18,8 +18,8 @@ export default async function UserLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+  console.log("User:", session);
   if (!session) redirect("/login");
-  console.log(session);
   return (
     <>
       <DashHeader />

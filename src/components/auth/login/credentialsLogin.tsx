@@ -37,10 +37,9 @@ const CredentialsLoginForm: React.FC<Props> = ({ button }) => {
       console.log(signin);
       if (!signin?.ok) return setError(signin?.error);
       setError(null);
-      formRef.current?.reset();
-      router.push("/app");
+      // formRef.current?.reset();
+      // router.push("/app");
     } catch (error) {
-      console.log("fesfsefsef");
       console.log(error);
     }
   };
