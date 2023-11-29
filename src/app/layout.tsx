@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Averia_Libre, Inter, Josefin_Sans } from "next/font/google";
+import { Inter, Josefin_Sans } from "next/font/google";
 import "@/app/globals.css";
 
 // Import components
