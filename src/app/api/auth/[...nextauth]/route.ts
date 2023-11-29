@@ -47,7 +47,12 @@ export const authOptions: NextAuthOptions = {
         // const passowrdMatch = await user.comparePassword(password);
         // if (!passowrdMatch) throw new Error("Incorrect password");
 
-        return { name: user?.name, email: user?.email };
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
       },
     }),
   ],
