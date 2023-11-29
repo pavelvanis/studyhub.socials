@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { DashHeader } from "@/components/header/";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Studyhub",
@@ -17,6 +18,7 @@ export default async function UserLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+  if (!session) redirect("/login");
   console.log(session);
   return (
     <>

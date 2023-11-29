@@ -9,7 +9,9 @@ const Page = (props: Props) => {
     <>
       <header className="mx-10 shrink-0">
         <div className="flex justify-between items-center h-full">
-          <h1 className=" text-xl font-medium">studyhub</h1>
+          <Link href="/" className=" text-xl font-medium">
+            studyhub
+          </Link>
           <div className="flex items-center gap-3">
             <p className=" font-light text-sm">Already have account</p>
             <Button />

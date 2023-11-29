@@ -8,7 +8,7 @@ const HomeHeader = () => {
       <div className="flex justify-between items-center h-full">
         <div className="w-[14rem]"></div>
         <nav className="flex items-center justify-center gap-7">
-          <Link href="/app">Account</Link>
+          <Link href="/app">App</Link>
           <Link href="/help">Help</Link>
         </nav>
         <div className="w-[14rem]"></div>
