@@ -40,13 +40,21 @@ const CredentialsLoginForm: React.FC<Props> = ({ button }) => {
       // formRef.current?.reset();
       // router.push("/account");
     } catch (error) {
+      console.log("fesfsefsef");
       console.log(error);
     }
   };
   return (
-    <form onSubmit={submitHandler} className=" w-full space-y-5">
-      <Inputs credentials={credentials} />
-      <Button title={button || ""} />
+    <form onSubmit={submitHandler} className=" w-full ">
+      <div className=" space-y-5">
+        <Inputs credentials={credentials} />
+      </div>
+      {error && (
+        <p className=" mt-3 ms-1 mb-5 text-sm text-red-700">
+          *<span className="ms-1">{error}</span>
+        </p>
+      )}
+      <Button className={error ? "" : "mt-5"} title={button || ""} />
     </form>
   );
 };
