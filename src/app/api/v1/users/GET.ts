@@ -1,4 +1,4 @@
-import UserModel from "@/models/db/user/user";
+import UserModel from "@/models/user/user";
 import connectDB from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 

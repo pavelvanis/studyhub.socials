@@ -1,8 +1,7 @@
 import { notFound, validId } from "@/app/api/_utils/error-handler";
-import UserModel from "@/models/db/user/user";
+import UserModel from "@/models/user/user";
 import connectDB from "@/utils/db";
-import mongoose from "mongoose";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 interface NewUserResponse {
   id: string;

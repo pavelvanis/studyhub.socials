@@ -1,6 +1,7 @@
 "use client";
 import Input, { InputProps } from "@/components/utils/input/input";
 import { Lock, Mail, User2 } from "lucide-react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -40,12 +41,20 @@ const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
       if (!signup.ok) {
         return setError(res.error);
       }
+      // console.log(res);
+      const signin = await signIn("credentials", {
+        ...credentials.current,
+        redirect: false,
+      });
+      if (!signin?.ok) {
+        return setError("Something went wrong");
+      }
       // clear error state
       setError(null);
       // clear form
       formRef.current?.reset();
       // redirect to user page
-      router.replace(`/${res.user.name}`)
+      router.replace(`/app`);
     } catch (error) {
       console.log("blablabla");
       // console.error(error);

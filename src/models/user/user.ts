@@ -34,7 +34,7 @@ const userScheme = new Schema<UserDocument, {}, Methods>({
       message: "Invalid email",
     },
   },
-  name: { type: String, required: true, trim: true },
+  name: { type: String, required: true, unique: true, trim: true },
   role: { type: String, enum: ["admin", "user"], default: "user" },
   password: {
     type: String,

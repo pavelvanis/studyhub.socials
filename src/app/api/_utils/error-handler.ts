@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import createError from "http-errors";
 import { NextResponse } from "next/server";
 
 /**
@@ -36,4 +35,14 @@ export const notFound = (object: any, message?: string) => {
   }
 };
 
-export const validation = () => {};
+export const errorHandler = (error: any) => {
+  //   console.log(error);
+  if (error instanceof mongoose.Error) {
+    console.log(error.name);
+    return NextResponse.json({ message: error.message }, { status: 400 });
+  }
+  if (error instanceof Error) {
+    return NextResponse.json({ message: error.message }, { status: 400 });
+  }
+  return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+};

@@ -1,4 +1,5 @@
-import UserModel from "@/models/db/user/user";
+import { errorHandler, validId } from "@/app/api/_utils/error-handler";
+import UserModel from "@/models/user/user";
 import connectDB from "@/utils/db";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,19 +10,28 @@ type Props = {
   };
 };
 
+interface Updateduser {
+  name?: string;
+  email?: string;
+  role?: string;
+  password?: string;
+}
+
 export const update = async (req: NextRequest, { params: { id } }: Props) => {
   try {
     // check valid id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json({ message: "Inavlid id" }, { status: 400 });
-    }
+    const invalidId = validId(id);
+    if (invalidId) return invalidId;
 
-    const updates = await req.json();
-    console.log(updates);
+    const updates = (await req.json()) as Updateduser;
+
+    // const exist = await UserModel.find({ name: updates.name });
+
+    // Remove password from update
     delete updates.password;
-    console.log(updates);
+    // mongoose options
     const options: mongoose.QueryOptions = {
-      new: false,
+      new: true,
       projection: { __v: 0, password: 0 },
     };
 
@@ -32,10 +42,6 @@ export const update = async (req: NextRequest, { params: { id } }: Props) => {
 
     return NextResponse.json({ user: updated });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return errorHandler(error);
   }
 };
