@@ -10,7 +10,7 @@ export const UserZSchema = z.object({
   role: z.enum(["admin", "user"]).optional(),
 });
 
-interface UserDocument extends Document {
+export interface IUser extends Document {
   email: string;
   name: string;
   password: string;
@@ -21,7 +21,7 @@ interface Methods {
   comparePassword(password: string): Promise<boolean>;
 }
 
-const userScheme = new Schema<UserDocument, {}, Methods>({
+const userScheme = new Schema<IUser, {}, Methods>({
   email: {
     type: String,
     required: true,
@@ -109,4 +109,4 @@ userScheme.methods.comparePassword = async function (password: string) {
 
 const UserModel = models.User || model("User", userScheme);
 
-export default UserModel as Model<UserDocument, {}, Methods>;
+export default UserModel as Model<IUser, {}, Methods>;

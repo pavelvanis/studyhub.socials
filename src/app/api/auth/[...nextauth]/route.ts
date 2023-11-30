@@ -1,9 +1,10 @@
-import UserModel from "@/models/user";
+import UserModel, { IUser } from "@/models/user";
 import connectDB from "@/utils/db";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
+import Adapters from "next-auth/adapters";
 
 const LoginZSchema = z.object({
   email: z.string(),
@@ -16,17 +17,15 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, user, token }) {
-      console.log("<<< SESSION >>>");
-      // console.log("session: ", session);
-      console.log("user:", user);
-      // console.log("token: ", token);
-      // console.log("USER:", token.user);
-      session.user = token.user;
+      // console.log("<<< SESSION >>>");
+      // console.log("user:", user);
+      session.user = token.user as IUser;
       return session;
     },
     async jwt({ token, user }) {
       // console.log("<<< TOKEN >>>");
-      // console.log("user: ", user);
+      // console.log("user:", user);
+      // console.log("token:", token);
       if (user) {
         token.user = user;
       }
@@ -75,9 +74,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
 };
 
 const handler = NextAuth(authOptions);
