@@ -1,4 +1,4 @@
-import UserModel from "@/models/user/user";
+import UserModel from "@/models/user";
 import { NextResponse } from "next/server";
 
 type Props = {

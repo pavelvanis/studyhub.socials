@@ -1,5 +1,5 @@
 import { z } from "zod";
-import UserModel, { UserZSchema } from "@/models/user/user";
+import UserModel, { UserZSchema } from "@/models/user";
 import connectDB from "@/utils/db";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
