@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, user, token }) {
       console.log("<<< SESSION >>>");
       // console.log("session: ", session);
-      // console.log("user:", user);
+      console.log("user:", user);
       // console.log("token: ", token);
       // console.log("USER:", token.user);
       session.user = token.user;
@@ -26,7 +26,6 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user }) {
       // console.log("<<< TOKEN >>>");
-      // console.log("token: ", token);
       // console.log("user: ", user);
       if (user) {
         token.user = user;
