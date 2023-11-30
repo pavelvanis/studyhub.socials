@@ -31,7 +31,7 @@ const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
     e.preventDefault();
     try {
       // request to create user
-      const signup = await fetch("api/auth/users", {
+      const signup = await fetch("api/v1/users", {
         method: "POST",
         body: JSON.stringify({ ...credentials.current }),
       });
@@ -56,8 +56,7 @@ const CredentialsSignupForm: React.FC<Props> = ({ button }) => {
       // redirect to user page
       router.replace(`/app`);
     } catch (error) {
-      console.log("blablabla");
-      // console.error(error);
+      console.error(error);
     }
   };
 
@@ -89,7 +88,7 @@ const Button = ({ title, className, ...props }: ButtonProps) => {
       {...props}
       type="submit"
       className={twMerge(
-        "w-full bg-red-600 hover:bg-red-700 transition-all rounded-lg px-4 py-3 text-white font-semibold shadow-xl",
+        "w-full bg-red-600 hover:bg-red-700 transition-all rounded-lg px-4 py-3 text-white font-semibold",
         className
       )}
     >

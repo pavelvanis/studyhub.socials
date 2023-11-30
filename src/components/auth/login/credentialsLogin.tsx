@@ -71,7 +71,7 @@ const Button = ({ title, className, ...props }: ButtonProps) => {
       {...props}
       type="submit"
       className={twMerge(
-        "w-full bg-red-600 hover:bg-red-700 transition-all rounded-lg px-4 py-3 text-white font-semibold shadow-xl",
+        "w-full bg-red-600 hover:bg-red-700 transition-all rounded-lg px-4 py-3 text-white font-semibold ",
         className
       )}
     >

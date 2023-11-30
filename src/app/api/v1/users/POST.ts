@@ -1,7 +1,7 @@
 import { z } from "zod";
 import UserModel, { UserZSchema } from "@/models/user";
 import connectDB from "@/utils/db";
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { NextResponse } from "next/server";
 
 interface NewUserRequest {
@@ -51,12 +51,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
 
     // return user
     return NextResponse.json({
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
+      user: user,
     });
   } catch (error) {
     // return database error
@@ -76,6 +71,14 @@ export const POST = async (req: Request): Promise<NewResponse> => {
         { status: 400 }
       );
     }
+    if (error instanceof Error) {
+      if (error.name === "MongoServerError") {
+        return NextResponse.json({ error: "This name is already used" }, { status: 400 });
+      }
+      console.log(error.name);
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    console.log("Erroro>>>>>");
     console.error(error);
     // Return error
     return NextResponse.json(

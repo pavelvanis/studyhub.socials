@@ -52,7 +52,7 @@ const Button = () => {
   return (
     <Link
       href="/login"
-      className="bg-red-600 hover:bg-red-700 rounded-lg px-4 py-1.5 text-white font-semibold shadow-xl"
+      className="bg-red-600 hover:bg-red-700 rounded-lg px-4 py-1.5 text-white font-semibold"
     >
       Login
     </Link>
