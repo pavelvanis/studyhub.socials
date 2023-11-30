@@ -1,4 +1,4 @@
-// Not found page for (dash) layout
+// Not found page for (protected) layout
 
 const NotFound = () => {
   return (

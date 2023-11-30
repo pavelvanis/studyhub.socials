@@ -22,6 +22,11 @@ type NewResponse = NextResponse<{ user?: NewUserResponse; error?: string }>;
 // CREATE USER
 export const POST = async (req: Request): Promise<NewResponse> => {
   try {
+    // ... Token validation
+    console.log(
+      "<<<<< Token validation not implemented 'api/v1/users/getAll' >>>>>"
+    );
+
     const body = (await req.json()) as NewUserRequest;
     // connect to db
     await connectDB();
