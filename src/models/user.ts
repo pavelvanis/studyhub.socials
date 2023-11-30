@@ -10,7 +10,8 @@ export const UserZSchema = z.object({
   role: z.enum(["admin", "user"]).optional(),
 });
 
-export interface IUser extends Document {
+export interface IUser {
+  id: string;
   email: string;
   name: string;
   password: string;
