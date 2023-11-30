@@ -14,7 +14,16 @@ const AdminLayout = async ({ children }: Props) => {
   // if(session?.user.role !== "admin")) {
   //   redirect("/login")
   // }
-  return <>{children}</>;
+  return (
+    <>
+      <header className="text-center w-full bg-red-100 p-3">
+        <div className="flex justify-center items-center h-full text-center">
+          admin header
+        </div>
+      </header>
+      {children}
+    </>
+  );
 };
 
 export default AdminLayout;

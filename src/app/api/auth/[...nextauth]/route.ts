@@ -44,8 +44,8 @@ export const authOptions: NextAuthOptions = {
         if (!user) throw new Error("User does not exist");
 
         // compare password
-        // const passowrdMatch = await user.comparePassword(password);
-        // if (!passowrdMatch) throw new Error("Incorrect password");
+        const passowrdMatch = await user.comparePassword(password);
+        if (!passowrdMatch) throw new Error("Incorrect password");
 
         return {
           id: user._id.toString(),
