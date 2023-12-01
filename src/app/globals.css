@@ -25,15 +25,3 @@ body {
 main {
   min-height: calc(100vh - var(--header-height));
 }
-
-a {
-  font-weight: 300;
-  transition: .15s all ease-in-out;
-  /* transition: .4s text-decoration ease-in-out; */
-}
-
-a:hover {
-  /* font-weight: 400; */
-  text-underline-offset: .12rem;
-  text-decoration: underline;
-}

@@ -1,0 +1,10 @@
+a {
+  font-weight: 300;
+  transition: 0.15s all ease-in-out;
+}
+
+a:hover {
+  text-underline-offset: 0.12rem;
+  text-decoration: underline;
+}
+

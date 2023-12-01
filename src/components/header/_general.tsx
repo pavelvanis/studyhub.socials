@@ -1,24 +1,26 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { Auth, Nav } from "./lib";
+import { Auth, Menu, Nav } from "./lib";
 
 type Props = {};
 
 const GeneralHeader = async (props: Props) => {
   const session = await getServerSession(authOptions);
   return (
-    <header className="mx-10">
+    <header className=" mx-5 xs:mx-10">
       <div className="flex justify-between items-center h-full">
-        <div className=" w-full text-center xs:w-[13rem] ">
-          <Link href="/" className=" text-xl font-medium">
+        <div className="w-full xs:w-fit md:w-[13rem] text-center">
+          <Link href="/" className=" text-2xl font-medium">
             studyhub
           </Link>
         </div>
         {/* nav links */}
-        <Nav className=" hidden md:flex " />
+        <Nav className=" hidden xs:flex " />
         {/* Login & Signup buttons */}
-        <Auth className=" hidden xs:flex " />
+        <Auth className=" hidden md:flex w-[13rem]" />
+        {/* Menu button */}
+        <Menu className="  md:hidden " />
       </div>
     </header>
   );
