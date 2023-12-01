@@ -1,7 +1,8 @@
 import { twMerge } from "tailwind-merge";
 import NavItem, { NavItemProps } from "./link";
+import { CLink, ClinkProps } from "@/components/utils";
 
-const links: NavItemProps[] = [
+const links: ClinkProps[] = [
   {
     href: "/projects",
     children: "Projects",
@@ -22,7 +23,7 @@ const Nav: React.FC<NavProps> = ({ className }): JSX.Element => {
   return (
     <nav className={twMerge("gap-2", className)}>
       {links.map((link) => (
-        <NavItem {...link} />
+        <CLink {...link} />
       ))}
     </nav>
   );

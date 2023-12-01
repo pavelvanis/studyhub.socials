@@ -1,4 +1,5 @@
 import Link, { LinkProps } from "next/link";
+import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 export type NavItemProps = LinkProps & {
