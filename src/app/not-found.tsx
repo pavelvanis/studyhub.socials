@@ -5,8 +5,7 @@ const NotFound = () => {
       <br />
       <br />
       Page was not founded
-      <br />
-      /
+      <br />/
     </main>
   );
 };

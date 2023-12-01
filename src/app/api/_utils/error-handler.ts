@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
 /**
  * Validates if the provided ID is a valid MongoDB ObjectId.
@@ -37,12 +38,31 @@ export const notFound = (object: any, message?: string) => {
 
 export const errorHandler = (error: any) => {
   //   console.log(error);
-  if (error instanceof mongoose.Error) {
-    console.log(error.name);
-    return NextResponse.json({ message: error.message }, { status: 400 });
+  if (error instanceof mongoose.Error.ValidationError) {
+    // console.log(error.message);
+    return NextResponse.json({ error: error.message }, { status: 422 });
+  }
+  // return Syntax error
+  if (error instanceof SyntaxError) {
+    // console.log(error.message);
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+  if (error instanceof z.ZodError) {
+    // console.log(error.errors[0].message);
+    return NextResponse.json(
+      { error: error.errors[0].message },
+      { status: 400 }
+    );
   }
   if (error instanceof Error) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+    if (error.name === "MongoServerError") {
+      return NextResponse.json(
+        { error: "This name is already used" },
+        { status: 400 }
+      );
+    }
+    console.log(error.name);
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
   return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 };

@@ -38,9 +38,9 @@ const Input: React.FC<InputProps> = (props) => {
             })}
         </div>
       </div>
-      <p className=" text-red-700 leading-[1] mt-[0.15rem] items-center flex">
-        {/* <AlertTriangle className=" h-4 p-[.07rem]" /> */}
-      </p>
+      {/* <p className=" text-red-700 leading-[1] mt-[0.15rem] items-center flex">
+        <AlertTriangle className=" h-4 p-[.07rem]" />
+      </p> */}
     </div>
   );
 };

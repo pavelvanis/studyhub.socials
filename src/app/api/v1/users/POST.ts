@@ -3,6 +3,7 @@ import UserModel, { UserZSchema } from "@/models/user";
 import connectDB from "@/utils/db";
 import mongoose, { mongo } from "mongoose";
 import { NextResponse } from "next/server";
+import { errorHandler } from "../../_utils/error-handler";
 
 interface NewUserRequest {
   name: string;
@@ -54,36 +55,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       user: user,
     });
   } catch (error) {
-    // return database error
-    if (error instanceof mongoose.Error.ValidationError) {
-      // console.log(error.message);
-      return NextResponse.json({ error: error.message }, { status: 422 });
-    }
-    // return Syntax error
-    if (error instanceof SyntaxError) {
-      // console.log(error.message);
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-    if (error instanceof z.ZodError) {
-      // console.log(error.errors[0].message);
-      return NextResponse.json(
-        { error: error.errors[0].message },
-        { status: 400 }
-      );
-    }
-    if (error instanceof Error) {
-      if (error.name === "MongoServerError") {
-        return NextResponse.json({ error: "This name is already used" }, { status: 400 });
-      }
-      console.log(error.name);
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-    console.log("Erroro>>>>>");
-    console.error(error);
-    // Return error
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    // return error
+    return errorHandler(error);
   }
 };

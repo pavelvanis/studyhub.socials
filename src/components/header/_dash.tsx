@@ -15,7 +15,7 @@ const DashHeader = async () => {
         <Link href="/app">App</Link>
         <Link href="/help">Help</Link>
         {session?.user?.role === "admin" ? (
-          <Link href="/help">Dashboard</Link>
+          <Link href="/dashboard">Dashboard</Link>
         ) : null}
       </nav>
       <div className="">

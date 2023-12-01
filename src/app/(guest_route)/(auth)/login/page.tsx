@@ -7,13 +7,13 @@ type Props = {};
 const Page = (props: Props) => {
   return (
     <>
-      <header className="mx-10 shrink-0">
+      <header className="mx-10">
         <div className="flex justify-between items-center h-full">
           <Link href="/" className=" text-xl font-medium">
             studyhub
           </Link>
           <div className="flex items-center gap-3">
-            <p className=" font-light text-sm">Already have account</p>
+            <p className=" font-light text-sm">Do not have an account?</p>
             <Button />
           </div>
         </div>

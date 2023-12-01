@@ -13,6 +13,9 @@ const HomeHeader = async () => {
         <nav className="flex items-center justify-center gap-7">
           <Link href="/app">App</Link>
           <Link href="/help">Help</Link>
+          {session?.user?.role === "admin" ? (
+            <Link href="/dashboard">Dashboard</Link>
+          ) : null}
         </nav>
         <div className=" absolute right-10 top-1/2 -translate-y-1/2">
           {session ? (

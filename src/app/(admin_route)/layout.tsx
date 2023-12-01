@@ -5,17 +5,22 @@ import { redirect } from "next/navigation";
 import { IUser } from "@/models/user";
 import Link from "next/link";
 import SignoutBtn from "@/components/auth/signout/button";
+import { Metadata } from "next";
 
 type Props = {
   children: ReactNode;
+};
+
+export const metadata: Metadata = {
+  title: "Studyhub | Admin",
 };
 
 const AdminLayout = async ({ children }: Props) => {
   const session = await getServerSession(authOptions);
   console.log("<<< ADMIN_ROUTE >>>");
   const user = session?.user as IUser;
-  if (session?.user?.role !== "admin") {
-    redirect("/login");
+  if (session?.user?.role !== "admin" || !session) {
+    return redirect("/login");
   }
   return (
     <>

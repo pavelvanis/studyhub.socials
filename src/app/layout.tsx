@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Josefin_Sans } from "next/font/google";
+import { Averia_Libre, Inter, Josefin_Sans } from "next/font/google";
 import "@/app/globals.css";
 
 // Import components
-import { Footer, Header, Providers } from "@/components";
+import { Providers } from "@/components";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// const font = Averia_Libre({
-//   weight: ["300", "400"],
-//   subsets: ["latin"],
-// });
+const font = Averia_Libre({
+  weight: ["300", "400"],
+  subsets: ["latin"],
+});
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={josefin.className}>
         <Providers>{children}</Providers>
       </body>
     </html>

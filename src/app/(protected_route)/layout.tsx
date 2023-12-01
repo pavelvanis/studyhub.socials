@@ -6,10 +6,10 @@ import { DashHeader } from "@/components/header/";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import GeneralHeader from "@/components/header/_general";
 
 export const metadata: Metadata = {
-  title: "Studyhub",
-  description: "The best website you have ever seen",
+  title: "Studyhub | App",
 };
 
 export default async function UserLayout({
@@ -19,10 +19,11 @@ export default async function UserLayout({
 }) {
   const session = await getServerSession(authOptions);
   console.log("User:", session);
-  if (!session) redirect("/login");
+  if (!session) return redirect("/login");
   return (
     <>
-      <DashHeader />
+      {/* <DashHeader /> */}
+      <GeneralHeader />
       {children}
     </>
   );

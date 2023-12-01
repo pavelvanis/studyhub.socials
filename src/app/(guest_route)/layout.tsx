@@ -10,7 +10,9 @@ type Props = {
 const GuestRoute = async ({ children }: Props) => {
   const session = await getServerSession(authOptions);
   console.log("Login: ", session);
-  if (session) redirect("/app");
+
+  if (session) return redirect("/app");
+
   return <>{children}</>;
 };
 

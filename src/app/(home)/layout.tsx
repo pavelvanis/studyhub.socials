@@ -4,6 +4,7 @@ import "@/app/globals.css";
 // Import components
 import { Footer } from "@/components";
 import { HomeHeader } from "@/components/header";
+import GeneralHeader from "@/components/header/_general";
 
 export const metadata: Metadata = {
   title: "Studyhub",
@@ -17,7 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <HomeHeader />
+      {/* <HomeHeader /> */}
+      <GeneralHeader />
       {children}
       <Footer />
     </>
