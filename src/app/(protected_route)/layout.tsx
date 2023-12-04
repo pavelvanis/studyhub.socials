@@ -4,9 +4,9 @@ import "@/app/globals.css";
 // Import components
 import { DashHeader } from "@/components/header/";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import GeneralHeader from "@/components/header/_general";
+import { authOptions } from "../api/_utils/authoptions";
 
 export const metadata: Metadata = {
   title: "Studyhub | App",

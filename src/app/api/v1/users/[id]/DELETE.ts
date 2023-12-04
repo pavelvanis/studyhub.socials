@@ -1,11 +1,11 @@
 import UserModel from "@/models/user";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type Props = {
   params: { id: string };
 };
 
-export const deleteOne = async ({}, { params: { id } }: Props) => {
+export const deleteOne = async (req: NextRequest, { params: { id } }: Props) => {
   try {
     const deleted = await UserModel.findByIdAndDelete(id, {
       projection: { __v: 0, password: 0 },

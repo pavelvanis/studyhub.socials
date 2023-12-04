@@ -1,7 +1,7 @@
 import { notFound, validId } from "@/app/api/_utils/error-handler";
 import UserModel from "@/models/user";
 import connectDB from "@/utils/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 interface NewUserResponse {
   id: string;
@@ -16,7 +16,7 @@ type Props = {
 
 type NewResponse = NextResponse<{ users?: NewUserResponse; error?: string }>;
 
-export const getOne = async ({}, { params: { id } }: Props) => {
+export const getOne = async (req: NextRequest, { params: { id } }: Props) => {
   try {
     // check valid id
     const invalidId = validId(id);

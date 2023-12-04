@@ -1,7 +1,8 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Auth, Menu, Nav } from "./lib";
+import { authOptions } from "@/app/api/_utils/authoptions";
 
 type Props = {};
 

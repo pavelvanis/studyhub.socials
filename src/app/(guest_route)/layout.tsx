@@ -1,7 +1,8 @@
 import { getServerSession } from "next-auth";
 import React, { ReactNode } from "react";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import { authOptions } from "../api/_utils/authoptions";
+
 
 type Props = {
   children: ReactNode;
