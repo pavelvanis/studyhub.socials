@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import React, { ReactNode } from "react";
 import { redirect } from "next/navigation";
-import { authOptions } from "../api/_utils/authoptions";
+import { authOptions } from "../api/_services/authoptions";
 
 
 type Props = {

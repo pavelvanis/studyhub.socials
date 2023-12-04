@@ -3,7 +3,7 @@ import UserModel, { UserZSchema } from "@/models/user";
 import connectDB from "@/utils/db";
 import mongoose, { mongo } from "mongoose";
 import { NextResponse } from "next/server";
-import { errorHandler } from "../../_utils/error-handler";
+import { errorHandler } from "../../_services/error-handler";
 
 interface NewUserRequest {
   name: string;

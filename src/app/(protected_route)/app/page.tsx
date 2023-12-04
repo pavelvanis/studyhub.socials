@@ -1,5 +1,5 @@
 
-import { authOptions } from "@/app/api/_utils/authoptions";
+import { authOptions } from "@/app/api/_services/authoptions";
 import { IUser } from "@/models/user";
 import { getServerSession } from "next-auth";
 

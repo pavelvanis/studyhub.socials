@@ -5,7 +5,7 @@ import { IUser } from "@/models/user";
 import Link from "next/link";
 import SignoutBtn from "@/components/auth/signout/button";
 import { Metadata } from "next";
-import { authOptions } from "../api/_utils/authoptions";
+import { authOptions } from "../api/_services/authoptions";
 
 type Props = {
   children: ReactNode;

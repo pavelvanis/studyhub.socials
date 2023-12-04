@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/_utils/authoptions";
+import { authOptions } from "@/app/api/_services/authoptions";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import SignoutBtn from "../auth/signout/button";

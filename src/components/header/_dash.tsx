@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SignoutBtn from "../auth/signout/button";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/_utils/authoptions";
+import { authOptions } from "@/app/api/_services/authoptions";
 
 // Header for (dash) layout
 

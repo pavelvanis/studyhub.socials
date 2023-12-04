@@ -1,4 +1,4 @@
-import { notFound, validId } from "@/app/api/_utils/error-handler";
+import { notFound, validId } from "@/app/api/_services/error-handler";
 import UserModel from "@/models/user";
 import connectDB from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";

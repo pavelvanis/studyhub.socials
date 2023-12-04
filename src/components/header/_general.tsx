@@ -2,7 +2,7 @@
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Auth, Menu, Nav } from "./lib";
-import { authOptions } from "@/app/api/_utils/authoptions";
+import { authOptions } from "@/app/api/_services/authoptions";
 
 type Props = {};
 
