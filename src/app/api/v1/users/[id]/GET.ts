@@ -1,6 +1,6 @@
 import { notFound, validId } from "@/app/api/_services/error-handler";
 import UserModel from "@/models/user";
-import connectDB from "@/utils/db";
+import connectDB from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 interface NewUserResponse {

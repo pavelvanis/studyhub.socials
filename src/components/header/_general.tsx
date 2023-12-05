@@ -1,8 +1,8 @@
-
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Auth, Menu, Nav } from "./lib";
 import { authOptions } from "@/app/api/_services/authoptions";
+import SignoutBtn from "../auth/signout/button";
 
 type Props = {};
 
@@ -18,8 +18,12 @@ const GeneralHeader = async (props: Props) => {
         </div>
         {/* nav links */}
         <Nav className=" hidden xs:flex " />
-        {/* Login & Signup buttons */}
-        <Auth className=" hidden md:flex w-[13rem]" />
+        {/* Signout OR Login & Signup buttons */}
+        {session ? (
+          <SignoutBtn />
+        ) : (
+          <Auth className=" hidden md:flex w-[13rem]" />
+        )}
         {/* Menu button */}
         <Menu className="  md:hidden " />
       </div>

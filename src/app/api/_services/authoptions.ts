@@ -1,5 +1,5 @@
 import UserModel, { IUser } from "@/models/user";
-import connectDB from "@/utils/db";
+import connectDB from "@/lib/db";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
@@ -19,14 +19,16 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      session.user = token.user as IUser;
+      console.log("SSS session:", session);
+      console.log("SSS token:", token);
+      session.user = token as any;  
       return session;
     },
-    async jwt({ token, user }) {
-      if (user) {
-        token.user = user;
-      }
-      return token;
+    async jwt({ token, user, account }) {
+      // console.log("JWT token:", token);
+      // console.log("JWT user:", user);
+      console.log("JWT account:", account);
+      return { ...token, ...user };
     },
   },
   providers: [

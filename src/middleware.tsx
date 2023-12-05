@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getValidSubdomain } from "./utils/getvalidDomain";
+import { getValidSubdomain } from "./lib/getvalidDomain";
 
 // Subdomains list
 const SUBDOMAIN_LAYOUT_MAP: { [key: string]: string } = {

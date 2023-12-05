@@ -1,9 +1,8 @@
-import { z } from "zod";
 import UserModel, { UserZSchema } from "@/models/user";
-import connectDB from "@/utils/db";
-import mongoose, { mongo } from "mongoose";
-import { NextResponse } from "next/server";
+import connectDB from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 import { errorHandler } from "../../_services/error-handler";
+import checkToken from "../../_services/checkToken";
 
 interface NewUserRequest {
   name: string;
@@ -12,7 +11,7 @@ interface NewUserRequest {
 }
 
 interface NewUserResponse {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   role: string;
@@ -21,12 +20,11 @@ interface NewUserResponse {
 type NewResponse = NextResponse<{ user?: NewUserResponse; error?: string }>;
 
 // CREATE USER
-export const POST = async (req: Request): Promise<NewResponse> => {
+export const POST = async (req: NextRequest) => {
   try {
     // ... Token validation
-    console.log(
-      "<<<<< Token validation not implemented 'api/v1/users/getAll' >>>>>"
-    );
+    const token = await checkToken(req);
+    console.log(token);
 
     const body = (await req.json()) as NewUserRequest;
     // connect to db
@@ -49,10 +47,16 @@ export const POST = async (req: Request): Promise<NewResponse> => {
 
     // create user
     const user = await UserModel.create({ ...body });
+    console.log(user);
 
     // return user
     return NextResponse.json({
-      user: user,
+      user: {
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (error) {
     // return error

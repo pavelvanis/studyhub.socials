@@ -1,6 +1,6 @@
 import { errorHandler, validId } from "@/app/api/_services/error-handler";
 import UserModel from "@/models/user";
-import connectDB from "@/utils/db";
+import connectDB from "@/lib/db";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -38,7 +38,13 @@ export const update = async (req: NextRequest, { params: { id } }: Props) => {
     await connectDB();
 
     const updated = await UserModel.findByIdAndUpdate(id, updates, options);
-    console.log(updated);
+
+    if (!updated) {
+      return NextResponse.json(
+        { error: "User does not exist" },
+        { status: 400 }
+      );
+    }
 
     return NextResponse.json({ user: updated });
   } catch (error) {
