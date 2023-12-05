@@ -37,9 +37,11 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ message: "Bad password" }, { status: 401 });
 
     const secretKey = process.env.NEXTAUTH_SECRET as Secret;
-    const token = await jwt.sign({ user: user }, secretKey);
+    const token = jwt.sign({ userId: user._id }, secretKey, {
+      expiresIn: "3h",
+    });
 
-    console.log({ user, token });
+    // console.log({ user, token });
 
     return NextResponse.json({ user, token });
   } catch (error) {

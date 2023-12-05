@@ -1,30 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getValidSubdomain } from "./lib/getvalidDomain";
-
-// Subdomains list
-const SUBDOMAIN_LAYOUT_MAP: { [key: string]: string } = {
-  app: "AppLayout",
-  help: "HelpLayout",
-};
-
-// RegExp for public files
-const PUBLIC_FILE = /\.(js|css|png|jpg)$/; // Files
+import { JwtError, verifyJwt } from "./lib/jwt";
+import { InvalidTokenError } from "jwt-decode";
 
 export async function middleware(req: NextRequest) {
-  const url = req.nextUrl.clone();
+  console.log("Middleware");
+  try {
+    const token = req.headers
+      .get("Authorization")
+      ?.replace("Bearer", "")
+      .trim();
 
-  // Skip public files
-  if (PUBLIC_FILE.test(url.pathname) || url.pathname.includes("_next")) return;
-
-  const host = req.headers.get("host");
-  const subdomain = getValidSubdomain(host);
-  if (subdomain) {
-    // Subdomain available, rewriting
-    // console.log(
-    //   `>>> Rewriting: ${url.pathname} to /${subdomain}${url.pathname}`
-    // );
-    url.pathname = `/${subdomain}${url.pathname}`;
+    // Returned when token exist and is varified
+    if (token && verifyJwt(token)) return;
+    // Throw JwtError
+    else throw new InvalidTokenError("Invalid token");
+  } catch (error) {
+    console.error(error);
+    if (error instanceof InvalidTokenError) {
+      return NextResponse.json({ message: error.message }, { status: 401 });
+    }
+    return NextResponse.json(
+      { message: "Something went wrong" },
+      { status: 401 }
+    );
   }
-
-  return NextResponse.rewrite(url);
 }
+
+export const config = {
+  matcher: ["/api/v1/:path*", "/api/test/:path*"],
+};
