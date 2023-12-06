@@ -20,7 +20,7 @@ interface NewUserResponse {
 type NewResponse = NextResponse<{ user?: NewUserResponse; error?: string }>;
 
 // CREATE USER
-export const POST = async (req: NextRequest) => {
+export const create = async (req: NextRequest) => {
   try {
     // ... Token validation
     const token = await checkToken(req);

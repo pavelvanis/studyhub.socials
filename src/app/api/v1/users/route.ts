@@ -1,2 +1,2 @@
 export { getAll as GET } from "./GET";
-export { POST } from "./POST";
+export { create as POST } from "./POST";
