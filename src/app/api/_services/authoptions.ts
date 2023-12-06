@@ -3,6 +3,7 @@ import connectDB from "@/lib/db";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
+import { NextResponse } from "next/server";
 
 const LoginZSchema = z.object({
   email: z.string(),
@@ -19,15 +20,15 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      console.log("SSS session:", session);
-      console.log("SSS token:", token);
-      session.user = token as any;  
+      // console.log("SSS session:", session);
+      // console.log("SSS token:", token);
+      session.user = token as any;
       return session;
     },
     async jwt({ token, user, account }) {
       // console.log("JWT token:", token);
       // console.log("JWT user:", user);
-      console.log("JWT account:", account);
+      // console.log("JWT account:", account);
       return { ...token, ...user };
     },
   },
@@ -44,11 +45,7 @@ export const authOptions: NextAuthOptions = {
             console.log(error.message);
             throw new Error("Invalid type");
           }
-          return null;
         }
-
-        // connect to DB
-        await connectDB();
 
         // destructuralize credentials
         const { email, password } = credentials as {
@@ -56,20 +53,19 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        // find user
-        const user = await UserModel.findOne({ email }, { __v: 0 });
-        if (!user) throw new Error("User does not exist");
+        const login = await fetch("http://localhost:3000/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email: email, password: password }),
+        });
+        const res = await login.json();
+        console.log("res ", res);
 
-        // compare password
-        const passowrdMatch = await user.comparePassword(password);
-        if (!passowrdMatch) throw new Error("Incorrect password");
-
-        return {
-          id: user._id.toString(),
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        };
+        if (login.ok) {
+          console.log("ok");
+          return res;
+        } else {
+          throw new Error(res.message);
+        }
       },
     }),
   ],

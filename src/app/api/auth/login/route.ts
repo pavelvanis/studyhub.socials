@@ -41,11 +41,9 @@ export const POST = async (req: NextRequest) => {
       expiresIn: "3h",
     });
 
-    // console.log({ user, token });
-
     return NextResponse.json({ user, token });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: error });
+    return NextResponse.json({ message: error }, {status: 400});
   }
 };
