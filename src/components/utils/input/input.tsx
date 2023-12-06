@@ -1,49 +1,41 @@
-import { AlertTriangle } from "lucide-react";
 import React, { InputHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
+import Before from "./_before";
+import Label from "./_label";
+import After from "./_after";
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  icon?: JSX.Element;
-  type?: InputHTMLAttributes<HTMLInputElement>["type"];
-  id?: string;
-  title?: string;
+  before?: JSX.Element;
+  after?: JSX.Element;
 };
 
 const variants = {
-  base: "border rounded-lg w-full h-[2.3rem] ps-9 pe-3 font-light text-sm hover:border-slate-300 focus:border-slate-500 focus:outline-none",
+  base: " w-full h-[2.3rem] ps-9 pe-3 border focus:outline-none bg-transparent",
 };
 
-const Input: React.FC<InputProps> = (props) => {
-  const id = props.id || props.type;
-
+const Input: React.FC<InputProps> = ({
+  id,
+  title,
+  required,
+  before,
+  after,
+  className,
+  ...props
+}) => {
   return (
-    <div className=" w-full">
-      <label
-        htmlFor={id}
-        className=" w-full text-[0.67rem] ms-1 mb-1 block relative leading-[1] font-medium"
-      >
-        {props.required && <span className=" text-red- me-1">*</span>}
-        {props.title}
-      </label>
-      <div className="relative">
-        <input
-          {...props}
-          id={id}
-          className={twMerge(variants.base, props.className)}
-        />
-        <div className="absolute top-1/2 left-2 -translate-y-1/2">
-          {props.icon &&
-            React.cloneElement(props.icon, {
-              className: twMerge("p-[0.27rem] stroke-slate-500"),
-            })}
-        </div>
+    <div className=" w-full ">
+      {/* Label */}
+      {title && <Label id={id} title={title} required={required} />}
+      <div className="flex bg-white rounded-lg h-[2.3rem]">
+        {/* Before */}
+        {before && <Before className="border" >{before}</Before>}
+        {/* Input */}
+        <input {...props} className="bg-transparent grow py-1 px-3 ps-4 font-light border hover:border-slate-300" />
+        {/* After */}
+        {after && <After className=" border">{after}</After>}
       </div>
-      {/* <p className=" text-red-700 leading-[1] mt-[0.15rem] items-center flex">
-        <AlertTriangle className=" h-4 p-[.07rem]" />
-      </p> */}
     </div>
   );
 };
 
 export default Input;
-

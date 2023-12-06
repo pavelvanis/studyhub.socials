@@ -20,15 +20,13 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      // console.log("SSS session:", session);
-      // console.log("SSS token:", token);
-      session.user = token as any;
+      // console.log("ses:", token);
+      session.user = token as any
       return session;
     },
     async jwt({ token, user, account }) {
-      // console.log("JWT token:", token);
-      // console.log("JWT user:", user);
-      // console.log("JWT account:", account);
+      // console.log("user: ",user);
+      // console.log("token: ",token);
       return { ...token, ...user };
     },
   },
@@ -61,7 +59,6 @@ export const authOptions: NextAuthOptions = {
         console.log("res ", res);
 
         if (login.ok) {
-          console.log("ok");
           return res;
         } else {
           throw new Error(res.message);

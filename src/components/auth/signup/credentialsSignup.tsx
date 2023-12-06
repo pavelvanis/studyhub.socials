@@ -106,7 +106,7 @@ const Inputs = ({
   const inputs: InputProps[] = [
     {
       type: "text",
-      icon: <User2 />,
+      before: <User2 />,
       title: "Name",
       placeholder: "name",
       required: true,
@@ -116,7 +116,7 @@ const Inputs = ({
     },
     {
       type: "email",
-      icon: <Mail />,
+      before: <Mail />,
       title: "Email",
       placeholder: "email",
       required: true,
@@ -126,7 +126,7 @@ const Inputs = ({
     },
     {
       type: "password",
-      icon: <Lock />,
+      before: <Lock />,
       title: "Password",
       placeholder: "password",
       required: true,

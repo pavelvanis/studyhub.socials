@@ -1,0 +1,33 @@
+  return (
+    <div className=" w-full">
+      {title && <Label id={id} title={title} required={required} />}
+      <div className="relative group">
+        {before && <Before>{before}</Before>}
+        <input
+          {...props}
+          id={id}
+          className={twMerge(variants.base, props.className)}
+        />
+        <div className="absolute top-1/2 left-2 -translate-y-1/2">
+          {props.icon &&
+            React.cloneElement(props.icon, {
+              className: twMerge("p-[0.27rem] stroke-slate-500"),
+            })}
+        </div>
+      </div>
+    </div>
+  );
+
+
+    return (
+    <div className=" w-full">
+      {title && <Label id={id} title={title} required={required} />}
+      <div
+        ref={divref}
+        className="flex rounded-lg bg-white border hover:border-slate-300 focus:border-slate-500"
+      >
+        {before && <Before>{before}</Before>}
+        <input className={twMerge(variants.base, className)} {...props} />
+      </div>
+    </div>
+  );

@@ -89,7 +89,7 @@ const Inputs = ({
   const inputs: InputProps[] = [
     {
       type: "email",
-      icon: <Mail />,
+      before: <Mail />,
       title: "Email",
       placeholder: "email",
       required: true,
@@ -99,7 +99,7 @@ const Inputs = ({
     },
     {
       type: "password",
-      icon: <Lock />,
+      before: <Lock />,
       title: "Password",
       placeholder: "password",
       required: true,

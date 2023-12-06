@@ -11,7 +11,7 @@ const GeneralHeader = async (props: Props) => {
   return (
     <header className=" mx-5 xs:mx-10">
       <div className="flex justify-between items-center h-full">
-        <div className="w-full xs:w-fit md:w-[13rem] text-center">
+        <div className="w-full xs:w-fit md:w-[13rem] text-center xs:text-start">
           <Link href="/" className=" text-2xl font-medium">
             studyhub
           </Link>
@@ -20,7 +20,9 @@ const GeneralHeader = async (props: Props) => {
         <Nav className=" hidden xs:flex " />
         {/* Signout OR Login & Signup buttons */}
         {session ? (
-          <SignoutBtn />
+          <div className="w-[13rem] flex justify-end">
+            <SignoutBtn className=" " />
+          </div>
         ) : (
           <Auth className=" hidden md:flex w-[13rem]" />
         )}
