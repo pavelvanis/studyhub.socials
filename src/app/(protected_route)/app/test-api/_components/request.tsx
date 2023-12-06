@@ -9,7 +9,7 @@ type Props = {
   setState?: Function;
 };
 
-const SetRequest = ({ setState }: Props) => {
+const SetRequest = () => {
   const defaultUrl = "http://localhost:3000";
   const url = useRef<string>(defaultUrl + "/api/v1/");
   const method = useRef<string>("GET");
