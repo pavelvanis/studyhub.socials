@@ -21,11 +21,6 @@ export const getAll = async (req: NextRequest) => {
   try {
     const body = req.body;
 
-    // ... Token validation
-    console.log(
-      "<<<<< Token validation not implemented 'api/v1/users/getAll' >>>>>"
-    );
-
     await connectDB();
 
     const users = await UserModel.find({}, { __v: 0, password: 0 });

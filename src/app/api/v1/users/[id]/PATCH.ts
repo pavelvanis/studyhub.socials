@@ -25,8 +25,6 @@ export const update = async (req: NextRequest, { params: { id } }: Props) => {
 
     const updates = (await req.json()) as Updateduser;
 
-    // const exist = await UserModel.find({ name: updates.name });
-
     // Remove password from update
     delete updates.password;
     // mongoose options

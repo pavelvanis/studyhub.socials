@@ -29,11 +29,6 @@ export const getOne = async (req: NextRequest, { params: { id } }: Props) => {
     const notUser = notFound(user, "User was not found");
     if (notUser) return notUser;
 
-    // ... Token validation
-    console.log(
-      "<<<<< Token validation not implemented 'api/v1/users/getOne' >>>>>"
-    );
-
     // Return user
     return NextResponse.json({ user: user });
   } catch (error) {
